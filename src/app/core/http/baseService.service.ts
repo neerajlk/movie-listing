@@ -13,17 +13,13 @@ export class BaseService {
 
 
     public url = environment.url
-    public fixedParam = `?s=india&apikey=5e6ef66`
+    public fixedParam = `?apikey=5e6ef66`
     public searchAPIParam = `?apikey=5e6ef66`
 
 
 
     getData(param) {
-        return this.http.get(this.url + this.fixedParam + `&page=` + param);
-    }
-
-    getSearchedData(param) {
-        return this.http.get(this.url + this.searchAPIParam + `&s=` + param.search + `&page=` + param.page);
+        return this.http.get(this.url + this.fixedParam + `&s=` + param.search + `&page=` + param.page);
     }
 
     getDetailsById(id) {

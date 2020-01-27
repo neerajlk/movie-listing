@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MovieService } from '../../core/http/movieService.service'
 
 
@@ -9,10 +10,21 @@ import { MovieService } from '../../core/http/movieService.service'
 })
 export class MovieDetailComponent implements OnInit {
 
-  constructor(public movieAPI: MovieService) { }
+  movieId: string = ''
+  movieDetails: object = {}
+
+  constructor(public movieAPI: MovieService, public route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.movieAPI
+    this.route.params.subscribe(params => {
+      this.movieId = params.id
+    })
+
+    this.movieAPI.getMovieById(this.movieId).subscribe(
+      res => {
+        this.movieDetails = res
+      }
+    )
   }
 
 }

@@ -10,11 +10,11 @@ import { MovieService } from '../../core/http/movieService.service'
 export class MovieListComponent implements OnInit {
   pageNumber: number = 1
   movies: any = []
+  normalPayload: object = { search: 'india', page: this.pageNumber }
   constructor(public movie: MovieService) { }
 
   ngOnInit() {
-    // this.movies = [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]
-    this.movie.getMovies(this.pageNumber).subscribe(res => {
+    this.movie.getMovies(this.normalPayload).subscribe(res => {
       this.movies = res['Search']
     })
   }
@@ -29,8 +29,9 @@ export class MovieListComponent implements OnInit {
 
     if (scrollLocation >= limit) {
       this.pageNumber += 1
-      this.movie.getMovies(this.pageNumber).subscribe(res => {
-        this.movies = [...this.movies,...res['Search']]
+      this.normalPayload['page'] = this.pageNumber
+      this.movie.getMovies(this.normalPayload).subscribe(res => {
+        this.movies = [...this.movies, ...res['Search']]
       })
     }
 

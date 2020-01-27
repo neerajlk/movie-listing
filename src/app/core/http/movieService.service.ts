@@ -10,10 +10,17 @@ export class MovieService {
 
     constructor(private BaseService: BaseService) { }
 
-    getMovies(page) {
-        return this.BaseService.getData(page);
+    getMovies(params) {
+        return this.BaseService.getData(params);
     }
 
-    
+    getSearchedMovies(params) {
+        return this.BaseService.getData(params);
+    }
+
+    getMovieById(id) {
+        return this.BaseService.getDetailsById(id);
+    }
+
 
 }  

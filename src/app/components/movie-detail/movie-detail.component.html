@@ -3,12 +3,13 @@
     Movie Details
   </div>
   <div class="card-body">
-    <h5 class="card-title">Movie Title</h5>
-    <p class="card-text">Description</p>
-    <a data-toggle="modal" data-target="#modal-video" class="btn btn-primary">Watch Trailer</a>
+    <img src="{{movieDetails?.Poster}}" class="img-size" alt="...">
+    <h5 class="card-title py-3">{{movieDetails?.Title}}</h5>
+    <p class="card-text">{{movieDetails?.Plot}}</p>
+    <a data-toggle="modal" data-target="#modal-video" class="btn btn-primary text-white">Watch Trailer</a>
   </div>
   <div class="card-footer text-muted">
-    Release Date
+    Release Date : {{movieDetails?.Released}}
   </div>
 </div>
 

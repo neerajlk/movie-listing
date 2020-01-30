@@ -9,6 +9,7 @@ import { MovieListComponent } from './components/movie-list/movie-list.component
 import { BaseService } from './core/http/baseService.service'
 import { MovieService } from './core/http/movieService.service'
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,9 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [BaseService, MovieService],
   bootstrap: [AppComponent]

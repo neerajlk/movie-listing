@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 import { MovieService } from '../../core/http/movieService.service'
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
+
+
 
 @Component({
   selector: 'app-movie-list',
@@ -10,13 +14,30 @@ import { MovieService } from '../../core/http/movieService.service'
 export class MovieListComponent implements OnInit {
   pageNumber: number = 1
   movies: any = []
-  normalPayload: object = { search: 'india', page: this.pageNumber }
+  payload: object = { search: 'india', page: this.pageNumber }
+  searchInput = new FormControl();
+
   constructor(public movie: MovieService) { }
 
   ngOnInit() {
-    this.movie.getMovies(this.normalPayload).subscribe(res => {
+    this.movie.getMovies(this.payload).subscribe(res => {
       this.movies = res['Search']
     })
+
+    this.searchInput.valueChanges.pipe(debounceTime(300)).subscribe(
+      res => {
+        this.pageNumber = 1
+        if (res.length > 0)
+          this.payload = { search: res, page: this.pageNumber }
+        else
+          this.payload = { search: 'india', page: this.pageNumber }
+
+        this.movie.getMovies(this.payload).subscribe(res => {
+          this.movies = res['Search']
+        })
+
+      }
+    )
   }
 
   onScroll(event) {
@@ -26,11 +47,10 @@ export class MovieListComponent implements OnInit {
     // If the user has scrolled within 200px of the bottom, add more data
     const buffer = 0;
     const limit = tableScrollHeight - tableViewHeight - buffer;
-
     if (scrollLocation >= limit) {
       this.pageNumber += 1
-      this.normalPayload['page'] = this.pageNumber
-      this.movie.getMovies(this.normalPayload).subscribe(res => {
+      this.payload['page'] = this.pageNumber
+      this.movie.getMovies(this.payload).subscribe(res => {
         this.movies = [...this.movies, ...res['Search']]
       })
     }

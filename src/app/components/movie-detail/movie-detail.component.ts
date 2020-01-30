@@ -11,7 +11,7 @@ import { MovieService } from '../../core/http/movieService.service'
 export class MovieDetailComponent implements OnInit {
 
   movieId: string = ''
-  movieDetails: object = {}
+  movieDetails: any 
 
   constructor(public movieAPI: MovieService, public route: ActivatedRoute) { }
 

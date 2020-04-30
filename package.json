@@ -25,7 +25,7 @@
     "zone.js": "~0.8.26",
     "@types/jquery": "^3.3.31",
     "bootstrap": "^4.4.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "popper.js": "^1.16.0"
   },
   "devDependencies": {
